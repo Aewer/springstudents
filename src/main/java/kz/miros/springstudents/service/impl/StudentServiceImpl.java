@@ -1,26 +1,31 @@
-package kz.miros.springstudents.service.Impl;
+package kz.miros.springstudents.service.impl;
 
+import jakarta.transaction.Transactional;
 import kz.miros.springstudents.model.Student;
-import kz.miros.springstudents.repository.InMemoryStudentDAO;
+import kz.miros.springstudents.repository.StudentRepository;
 import kz.miros.springstudents.service.StudentService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
-public class InMemoryStudentServiceImpl implements StudentService {
+@RequiredArgsConstructor
+@Primary
+public class StudentServiceImpl implements StudentService {
 
-    private final InMemoryStudentDAO repository;
+    private final StudentRepository repository;
 
+    @Override
     public List<Student> findAllStudents() {
-        return repository.findAllStudents();
+        return repository.findAll();
     }
 
     @Override
     public Student saveStudent(Student student) {
-        return repository.saveStudent(student);
+        return repository.save(student);
     }
 
     @Override
@@ -30,11 +35,12 @@ public class InMemoryStudentServiceImpl implements StudentService {
 
     @Override
     public Student updateStudent(Student student) {
-        return repository.updateStudent(student);
+        return repository.save(student);
     }
 
     @Override
+    @Transactional
     public void deleteStudent(String email) {
-        repository.deleteStudent(email);
+        repository.deleteByEmail(email);
     }
 }

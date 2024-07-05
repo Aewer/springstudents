@@ -1,9 +1,7 @@
 package kz.miros.springstudents.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
 
 import java.time.LocalDate;
 import java.time.Period;
